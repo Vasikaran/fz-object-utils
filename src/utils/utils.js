@@ -15,7 +15,7 @@ let isString = (string)=>{
 }
 
 let isNumber = (number)=>{
-    return typeof number === 'number' ? true : false;
+    return Number(number) ? true : false;
 }
 
 let stringHasValue = (string, value)=>{

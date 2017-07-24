@@ -1,8 +1,8 @@
-import { isObject, isString, isEmptyObject, stringHasValue, hasValue, getValueFromObject } from './utils';
+import { isObject } from '../utils/utils';
 
 const deepValues = {};
 
-function getDeepValuesByKey(object, key){
+function searchByKey(object, key){
     let keys = Object.keys(object);
     let keyPath = arguments[2] ? arguments[2] : '';
     if (keys.indexOf(key) !== -1){
@@ -20,11 +20,11 @@ function getDeepValuesByKey(object, key){
                     path += '.';
                 }
                 path += objectKey;
-                getDeepValuesByKey(object[objectKey], key, path)
+                searchByKey(object[objectKey], key, path)
             }
         }
     })
     return deepValues;
 }
 
-export default getDeepValuesByKey;
+export default searchByKey;
