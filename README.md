@@ -41,7 +41,7 @@ getNestedValue(object, keyPath);
 
 If you pass the object and keyPath to this method, it will returns the value to that keyPath.
 
-[getNestedValue Example](./examples/example__getNestedValue.js)
+[getNestedValue Example](./examples/example__getNestedValues.js)
 
 ### setNestedValue
 `Params -  object, keyPath `
