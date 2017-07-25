@@ -1,14 +1,17 @@
 const {getNestedValue} = require('../lib/index');
 
-console.log(getNestedValue);
-
 let obj = {
-    name: undefined,
+    name: 'Vasi',
     age: 20
 }
 let key = 'name';
 
 console.log(getNestedValue(obj, key));
+
+/*
+output,
+    Vasi
+*/
 
 obj.phoneNo = {
     primary: 1234567890,
@@ -18,6 +21,11 @@ obj.phoneNo = {
 key = 'phoneNo.primary';
 
 console.log(getNestedValue(obj, key));
+
+/*
+output,
+    1234567890
+*/
 
 obj.users = {
     user1: {
@@ -38,6 +46,16 @@ key = 'users.user1.names.secondName';
 
 console.log(getNestedValue(obj, key));
 
+/*
+output,
+    'Karan'
+*/
+
 key = 'users.user1.address.streets.new';
 
 console.log(getNestedValue(obj, key));
+
+/*
+output,
+    'Main Road'
+*/

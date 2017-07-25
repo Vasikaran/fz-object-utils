@@ -10,28 +10,24 @@ var obj2 = {
     age: '19'
 }
 
-// console.log(compareObjects(obj1, obj2));
+console.log(compareObjects(obj1, obj2));
 
-obj1.details = {
-    fullName: 'Vasikaran',
-    age: 20,
-    number: [098, 765],
-    wow: {
-        ama: 'no'
+/*
+output,
+    {
+        name: {
+            obj1: 'Vasi',
+            obj2: 'Karan',
+            difference: '-none-'
+        },
+        age: {
+            obj1: '20',
+            obj2: '20',
+            difference: 1
+        }
     }
-}
 
-obj2.details = {
-    fullName: 'Vasi Raina',
-    age: 21,
-    number: [123, 456],
-    wow: {
-        ama: 'yes'
-    }
-}
-
-// console.log(compareObjects(obj1, obj2));
-
+*/
 
 var newObj1 = {
     name: 'Vasi'
@@ -42,3 +38,21 @@ var newObj2 = {
 }
 
 console.log(compareObjects(newObj1, newObj2));
+
+
+/*
+output,
+    {
+        name: {
+            obj1: 'Vasi',
+            obj2: undefined,
+            difference: '-none-'
+        },
+        age: {
+            obj1: undefined,
+            obj2: 20,
+            difference: undefined
+        }
+    }
+
+*/

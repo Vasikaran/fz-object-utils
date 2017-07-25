@@ -1,6 +1,6 @@
 function objectIterator(object){
     let keys = Object.keys(object);
-    let index = -1;
+    let index = 0;
     return {
         next: ()=>{
             if (index < keys.length){

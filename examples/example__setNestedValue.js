@@ -9,6 +9,11 @@ setNestedValue(obj, key, 'karan');
 
 console.log(obj.name);
 
+/*
+output,
+    'Karan'
+*/
+
 obj.phoneNo = {
     primary: 1234567890,
     secondary: 0987654321
@@ -19,6 +24,11 @@ key = 'phoneNo.primary';
 setNestedValue(obj, key, 12121212);
 
 console.log(obj.phoneNo.primary);
+
+/*
+output,
+    12121212
+*/
 
 obj.users = {
     user1: {
@@ -41,8 +51,20 @@ setNestedValue(obj, key, 'Raina');
 
 console.log(obj.users.user1.names.secondName);
 
+/*
+output,
+    Raina
+*/
+
+
 key = 'users.user1.address.streets.new';
 
 setNestedValue(obj, key, 'New street');
 
 console.log(obj.users.user1.address.streets.new);
+
+
+/*
+output,
+    New street
+*/

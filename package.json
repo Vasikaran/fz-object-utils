@@ -1,6 +1,6 @@
 {
   "name": "fz-object-utils",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "for json object utils",
   "main": "./lib/index.js",
   "scripts": {

@@ -1,15 +1,19 @@
 import { isString, isNumber, isObject, isArray } from '../utils/utils';
+import errorHandling from './errorHandling';
+
+let comparedObject = {};
 
 function compareTwoObjects(object1, object2, object1Key, object2Key){
     let obj1Keys = Object.keys(object1);
     let obj2Keys = Object.keys(object2);
     let commonObj = {};
-    obj1Keys.forEach(obj1Key=>{
-        let obj1Data = object1[obj1Key];
-        let index = obj2Keys.indexOf(obj1Key);
+    let keys = obj1Keys.length !== 0 ? obj1Keys : obj2Keys;
+    keys.forEach(key=>{
+        let obj1Data = object1[key];
+        let index = obj2Keys.indexOf(key);
         let obj2Data = undefined;
         if (index !== -1){
-            obj2Data = object2[obj1Key];
+            obj2Data = object2[key];
             obj2Keys.splice(index, 1);
         }
         let tempObj = {};
@@ -27,50 +31,52 @@ function compareTwoObjects(object1, object2, object1Key, object2Key){
             tempObj[object2Key] = obj2Data;
         }
         tempObj['difference'] = findDifference(obj1Data, obj2Data);
-        commonObj[obj1Key] = tempObj;
+        commonObj[key] = tempObj;
     })
     if (obj2Keys.length !== 0){
         let newObj = {};
         obj2Keys.forEach(obj2Key=>{
             newObj[obj2Key] = object2[obj2Key];
         })
-        commonObj = Object.assign(commonObj, compareTwoObjects(newObj, {}, object2Key, objectKey));
+        commonObj = Object.assign(commonObj, compareTwoObjects({}, newObj, object2Key, object1Key));
     }
     return commonObj;
 }
 
 function compareObjects(object1, object2, options = {}){
-    let comparedObject = {};
-    let { object1Key = 'obj1', object2Key = 'obj2' } = options;
-    let obj1Keys = Object.keys(object1);
-    let obj2Keys = Object.keys(object2);
-    obj1Keys.forEach(obj1Key=>{
-        let obj1Data = object1[obj1Key];
-        let obj2Data = undefined;
-        let index = obj2Keys.indexOf(obj1Key);
-        if (index !== -1){
-            obj2Data = object2[obj1Key];
-            obj2Keys.splice(index, 1);
-        }
-        if (isObject(obj1Data)){
-            comparedObject[obj1Key] = compareTwoObjects(obj1Data, obj2Data, object1Key, object2Key);
-        }else{
-            obj2Keys.splice(index, 1);
-            let tempObj = {};
-            tempObj[object1Key] = obj1Data;
-            tempObj[object2Key] = obj2Data;
-            tempObj['difference'] = findDifference(obj1Data, obj2Data);
-            comparedObject[obj1Key] = tempObj;
-        }
-    })
-    if (obj2Keys.length !== 0){
-        let newObj = {};
-        obj2Keys.forEach(obj2Key=>{
-            newObj[obj2Key] = object2[obj2Key];
+    if (errorHandling(object1) && errorHandling(object2)){
+        let comparedObject = {};
+        let { object1Key = 'obj1', object2Key = 'obj2' } = options;
+        let obj1Keys = Object.keys(object1);
+        let obj2Keys = Object.keys(object2);
+        let keys = obj1Keys.length !== 0 ? obj1Keys : obj2Keys;
+        keys.forEach(key=>{
+            let obj1Data = object1[key];
+            let obj2Data = undefined;
+            let index = obj2Keys.indexOf(key);
+            if (index !== -1){
+                obj2Data = object2[key];
+                obj2Keys.splice(index, 1);
+            }
+            if (isObject(obj1Data) || isObject(obj2Data)){
+                comparedObject[key] = compareTwoObjects(obj1Data, obj2Data, object1Key, object2Key);
+            }else{
+                let tempObj = {};
+                tempObj[object1Key] = obj1Data;
+                tempObj[object2Key] = obj2Data;
+                tempObj['difference'] = findDifference(obj1Data, obj2Data);
+                comparedObject[key] = tempObj;
+            }
         })
-        commonObj = Object.assign(commonObj, compareObjects(newObj, {}, object2Key, objectKey));
+        if (obj2Keys.length !== 0){
+            let newObj = {};
+            obj2Keys.forEach(obj2Key=>{
+                newObj[obj2Key] = object2[obj2Key];
+            })
+            comparedObject = Object.assign(comparedObject, compareObjects({}, newObj, object2Key, object1Key));
+        }
+        return comparedObject;
     }
-    return comparedObject;
 }
 
 function findDifference(data1, data2){

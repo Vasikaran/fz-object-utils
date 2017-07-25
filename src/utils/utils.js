@@ -1,5 +1,8 @@
 let isObject = (object)=>{
-    return object.toString() === '[object Object]' ? true : false;
+    if (object){
+        return object.toString() === '[object Object]' ? true : false;
+    }
+    return false;
 }
 
 let isEmptyObject = (object)=>{
