@@ -1,6 +1,8 @@
 Fz Object Utils
 =======================
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/Vasikaran/fz-object-utils.svg)](https://greenkeeper.io/)
+
 This library using for access JavaScript objects as well.
 
 ## Installation
